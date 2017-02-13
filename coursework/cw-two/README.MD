@@ -2,7 +2,7 @@
 
 https://github.com/andrebwt/SDP/coursework/cw-two/  
 
-> **Pair Programming Partner**  
-> Annie Hawes, ahawes02
-
-
+> **Pair Programming Partners**  
+><pre>
+> abrait02 - André Braithwaite  
+> ahawes02 - Annie Hawes
