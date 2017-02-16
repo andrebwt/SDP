@@ -1,4 +1,5 @@
 import scala.io.StdIn.readLine
+import scala.util.Random
 
 object Hammurabi extends App {
 
@@ -69,7 +70,7 @@ object Hammurabi extends App {
         bushelsInStorage = bushelsInStorage + (acresToBuy * pricePerAcre)
       }
 
-      var grainsToFeed = askHowMuchToFeedPeople(population, bushelsInStorage)
+      var grainsToFeed = askHowMuchToFeedPeople(population, bushelsInStorage, foodPerPerson)
       bushelsInStorage = bushelsInStorage - grainsToFeed
 
       var acresToFarm = askHowManyAcresToPlant(acresOwned, bushelsInStorage, population, costToPlantInBushels, landFarmedPerPerson)
@@ -94,7 +95,14 @@ object Hammurabi extends App {
 
   }
 
+  def printBuyingAdvice(b: Int, p: Int) = println(s"You have $b bushels in storage and can buy up to ${b/p} acres.")
+  def printSellingAdvice(a: Int) = println(s"You have $a acres available to sell.")
+  def printFeedingAdvice(p: Int, b: Int) = println(s"")
+
   def askHowMuchLandToBuy(bushels: Int, price: Int) = {
+
+    printBuyingAdvice(bushels, price)
+
     var acresToBuy = readInt("How many acres will you buy? ")
     while (acresToBuy < 0 || acresToBuy * price > bushels) {
       println("O Great Hammurabi, we have but " + bushels + " bushels of grain!")
@@ -104,7 +112,11 @@ object Hammurabi extends App {
   }
 
 
+
   def askHowMuchLandToSell(acres: Int, price: Int) = {
+
+    printSellingAdvice(acres)
+
     var acresToSell = readInt("How many acres will you sell? ")
     while (acresToSell < 0 || acresToSell > acres) {
       println("O Great Hammurabi, we have but " + acres + " acres to sell!")
@@ -113,10 +125,15 @@ object Hammurabi extends App {
     acresToSell
   }
 
-  def askHowMuchToFeedPeople(pop: Int, bushels: Int) = {
+  def askHowMuchToFeedPeople(pop: Int, bushels: Int, foodPp: Int) = {
     var grainsToFeed = readInt("How many bushels to feed the people?")
-    while (grainsToFeed < 0 || grainsToFeed > bushels) {
-      println("O Great Hammurabi, we have but " + bushels + " bushels of grain!")
+    while (grainsToFeed < 0 || grainsToFeed > bushels || grainsToFeed > pop * foodPp) {
+
+      if (grainsToFeed < 0 || grainsToFeed > bushels) {
+        println("O Great Hammurabi, we have but " + bushels + " bushels of grain!")
+      } else {
+        println("O Great Hammurabi, we need just " + (pop * foodPp) + " to feed the entire population!")
+      }
       grainsToFeed = readInt("How many bushels to feed the people?")
     }
     grainsToFeed
