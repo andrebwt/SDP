@@ -1,5 +1,6 @@
 import scala.io.StdIn.readLine
 import scala.util.Random
+import scala.math.min
 
 object Hammurabi extends App {
 
@@ -76,6 +77,7 @@ object Hammurabi extends App {
       var acresToFarm = askHowManyAcresToPlant(acresOwned, bushelsInStorage, population, costToPlantInBushels, landFarmedPerPerson)
       bushelsInStorage = bushelsInStorage - (acresToFarm * costToPlantInBushels)
 
+      //TODO Move yearly summary before questions
       println()
       println()
       println(s"""O great Hammurabi!
@@ -95,9 +97,26 @@ object Hammurabi extends App {
 
   }
 
-  def printBuyingAdvice(b: Int, p: Int) = println(s"You have $b bushels in storage and can buy up to ${b/p} acres.")
-  def printSellingAdvice(a: Int) = println(s"You have $a acres available to sell.")
-  def printFeedingAdvice(p: Int, b: Int, f: Int) = println(s"You have $b bushels in storage and the population needs ${p * f} bushels to be fed.")
+  def printBuyingAdvice(b: Int, p: Int) = println(s"\nYou have $b bushels in storage and can buy up to ${b/p} acres.")
+  def printSellingAdvice(a: Int) = println(s"\nYou have $a acres available to sell.")
+  def printFeedingAdvice(p: Int, b: Int, f: Int) = println(s"\nYou have $b bushels in storage and the population needs ${p * f} bushels to be fed.")
+
+  def printPlantingAdvice(a: Int, b: Int, p: Int, c: Int, farmedPp: Int) = {
+
+    // var maxAcresOwned = a
+    val maxAcresOnBudget = b / c
+    val maxAcresOnPop = p * farmedPp
+
+    val constraints: Array[Int] = Array(a, maxAcresOnBudget, maxAcresOnPop)
+
+    val maxPoss = constraints.min
+
+    println(s"\nYou can farm up to $maxPoss acres:")
+    println(s"    You have $a acres available to farm.")
+    println(s"    You have can afford to plant $maxAcresOnBudget acres")
+    println(s"    The population of $p can farm ${p * farmedPp} acres.\n")
+
+  }
 
   def askHowMuchLandToBuy(bushels: Int, price: Int) = {
 
@@ -110,8 +129,6 @@ object Hammurabi extends App {
     }
     acresToBuy
   }
-
-
 
   def askHowMuchLandToSell(acres: Int, price: Int) = {
 
@@ -129,13 +146,13 @@ object Hammurabi extends App {
 
     printFeedingAdvice(pop, bushels, foodPp)
 
-    var grainsToFeed = readInt("How many bushels to feed the people?")
+    var grainsToFeed = readInt("How many bushels to feed the people? ")
     while (grainsToFeed < 0 || grainsToFeed > bushels || grainsToFeed > pop * foodPp) {
 
       if (grainsToFeed < 0 || grainsToFeed > bushels) {
-        println("O Great Hammurabi, we have but " + bushels + " bushels of grain!")
+        println("\nO Great Hammurabi, we have but " + bushels + " bushels of grain!")
       } else {
-        println("O Great Hammurabi, we need just " + (pop * foodPp) + " to feed the entire population!")
+        println("\nO Great Hammurabi, we need just " + (pop * foodPp) + " to feed the entire population!")
       }
       grainsToFeed = readInt("How many bushels to feed the people?")
     }
@@ -143,6 +160,8 @@ object Hammurabi extends App {
   }
 
   def askHowManyAcresToPlant(acres: Int, bushels: Int, pop: Int, cost: Int, farmedPp: Int) = {
+
+    printPlantingAdvice(acres, bushels, pop, cost, farmedPp)
 
     var acresToPlant = readInt("How many acres do you wish to plant? ")
 
