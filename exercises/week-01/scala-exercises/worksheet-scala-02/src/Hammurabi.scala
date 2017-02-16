@@ -97,7 +97,7 @@ object Hammurabi extends App {
 
   def printBuyingAdvice(b: Int, p: Int) = println(s"You have $b bushels in storage and can buy up to ${b/p} acres.")
   def printSellingAdvice(a: Int) = println(s"You have $a acres available to sell.")
-  def printFeedingAdvice(p: Int, b: Int) = println(s"")
+  def printFeedingAdvice(p: Int, b: Int, f: Int) = println(s"You have $b bushels in storage and the population needs ${p * f} bushels to be fed.")
 
   def askHowMuchLandToBuy(bushels: Int, price: Int) = {
 
@@ -126,6 +126,9 @@ object Hammurabi extends App {
   }
 
   def askHowMuchToFeedPeople(pop: Int, bushels: Int, foodPp: Int) = {
+
+    printFeedingAdvice(pop, bushels, foodPp)
+
     var grainsToFeed = readInt("How many bushels to feed the people?")
     while (grainsToFeed < 0 || grainsToFeed > bushels || grainsToFeed > pop * foodPp) {
 
