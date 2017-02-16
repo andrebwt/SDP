@@ -1,6 +1,5 @@
 import scala.io.StdIn.readLine
 import scala.util.Random
-import scala.math.min
 
 object Hammurabi extends App {
 
@@ -58,6 +57,22 @@ object Hammurabi extends App {
 
     for (year <- 1 to 10) {
 
+      // Yearly Summary
+
+      println(s"""O great Hammurabi!
+                 |You are in year $year of your ten year rule.
+                 |In the previous year $starved people starved to death.
+                 |In the previous year $immigrants people entered the kingdom.
+                 |The population is now $population.
+                 |We harvested $harvest bushels at 3 bushels per acre.
+                 |Rats destroyed $rats_ate bushels, leaving 2800 bushels in storage.
+                 |The city owns $acresOwned acres of land.
+                 |Land is currently worth $pricePerAcre bushels per acre.
+                 |There were $plagueDeaths deaths from the plague.""".stripMargin)
+      println()
+
+      // User Questions
+
 
       var acresToBuy = askHowMuchLandToBuy(bushelsInStorage, pricePerAcre)
       acresOwned = acresOwned + acresToBuy
@@ -73,27 +88,42 @@ object Hammurabi extends App {
 
       var grainsToFeed = askHowMuchToFeedPeople(population, bushelsInStorage, foodPerPerson)
       bushelsInStorage = bushelsInStorage - grainsToFeed
+      val peopleFed = grainsToFeed / foodPerPerson
+      starved = population - peopleFed
+      population -= starved
+
 
       var acresToFarm = askHowManyAcresToPlant(acresOwned, bushelsInStorage, population, costToPlantInBushels, landFarmedPerPerson)
       bushelsInStorage = bushelsInStorage - (acresToFarm * costToPlantInBushels)
 
-      //TODO Move yearly summary before questions
-      println()
-      println()
-      println(s"""O great Hammurabi!
-        |You are in year $year of your ten year rule.
-        |In the previous year $starved people starved to death.
-        |In the previous year $immigrants people entered the kingdom.
-        |The population is now $population.
-        |We harvested $harvest bushels at 3 bushels per acre.
-        |Rats destroyed $rats_ate bushels, leaving 2800 bushels in storage.
-        |The city owns $acresOwned acres of land.
-        |Land is currently worth $pricePerAcre bushels per acre.
-        |There were $plagueDeaths deaths from the plague.""".stripMargin)
-      println()
+      harvest = acresToFarm * bushelsPerAcre
+      bushelsInStorage += harvest
 
+      // Random Events
+
+      // Was there a plague?
+
+      if (wasAPlague) {
+        println("There was a plague\n")
+        if (population == 1) plagueDeaths = 1 else plagueDeaths = population / 2
+        population = population - plagueDeaths
+      } else {
+        println("There was no plague\n")
+      }
     }
 
+
+  }
+
+  def wasAPlague: Boolean = {
+
+    val r: Int = Random.nextInt(100)+1
+    println(s"\nRand num: $r")
+
+    //if (r < 16) true else false
+
+    // Always a plague
+    true
 
   }
 
