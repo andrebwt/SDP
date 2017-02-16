@@ -2,7 +2,7 @@ import scala.io.StdIn.readLine
 
 object Hammurabi extends App {
 
-  // Testing in IDE
+  // For Testing in IDE
   hammurabi()
 
   def readInt(message: String): Int = {
@@ -37,20 +37,20 @@ object Hammurabi extends App {
 
   def hammurabi(): Unit = {
 
-    var starved = 0             // how many people starved
-    var immigrants = 5          // how many people came to the city
+    var starved = 0               // how many people starved
+    var immigrants = 5            // how many people came to the city
     var population = 100
-    var harvest = 3000          // total bushels harvested
-    var bushelsPerAcre = 3      // amount harvested for each acre planted
-    var rats_ate = 200          // bushels destroyed by rats
+    var harvest = 3000            // total bushels harvested
+    var bushelsPerAcre = 3        // amount harvested for each acre planted
+    var rats_ate = 200            // bushels destroyed by rats
     var bushelsInStorage = 2800
     var acresOwned = 1000
-    var pricePerAcre = 19       // each acre costs this many bushels
+    var pricePerAcre = 19         // each acre costs this many bushels
     var plagueDeaths = 0
 
-    var foodPerPerson = 20    // annual food (20 bushels per year for 1 person)
-    var costToPlantInBushels = 2 // howm mcuh it costs to plant per acres of land
-    var landFarmedPerPerson = 10 // each person can farm 10 acres
+    var foodPerPerson = 20        // annual food (20 bushels per year for 1 person)
+    var costToPlantInBushels = 2  // how much it costs to plant per acres of land
+    var landFarmedPerPerson = 10  // each person can farm 10 acres
 
     printIntroductoryMessage()
 
@@ -123,25 +123,25 @@ object Hammurabi extends App {
   }
 
   def askHowManyAcresToPlant(acres: Int, bushels: Int, pop: Int, cost: Int, farmedPp: Int) = {
+
     var acresToPlant = readInt("How many acres do you wish to plant? ")
-    //val enoughLand: Boolean = acres >= acresToPlant
-    //val enoughBushels: Boolean = bushels >= acresToPlant * cost
-    //val enoughPeople: Boolean = pop * farmedPp >= acresToPlant
 
-    while(!(acres >= acresToPlant) || !(bushels >= acresToPlant * cost) || !(bushels >= acresToPlant * cost)) {
+    //  (acres >= acresToPlant)           i.e. Are enough acres owned to plant what's requested?
+    //  (bushels >= acresToPlant * cost)  i.e. Are there enough bushels to pay for the planting requested?
+    //  (pop * farmedPp >= acresToPlant)  i.e. Are there enough people to plant the acres requested?
 
-     if(!(acres >= acresToPlant)) {
+    while(!(acres >= acresToPlant) || !(bushels >= acresToPlant * cost) || !(pop * farmedPp >= acresToPlant)) {
+
+      if(!(acres >= acresToPlant)) {
        print(s"not enough land, you have $acres acres of land. You would need ${acresToPlant-acres} more acres of land\n")
-     }
+      }
       if(!(bushels >= acresToPlant * cost)) {
         print(s"not enough bushels. You have $bushels bushels. You will need ${(acresToPlant * cost) - bushels}\n")
       }
-      if(!(bushels >= acresToPlant * cost)0) {
+      if(!(bushels >= acresToPlant * cost)) {
         print(s"not enough people. You have $pop people in your population. You will need at least ${acresToPlant/farmedPp} people\n")
       }
-
       acresToPlant = readInt("How many acres do you wish to plant? ")
-
 
     }
     acresToPlant
