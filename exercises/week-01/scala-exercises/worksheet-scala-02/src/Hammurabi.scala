@@ -53,6 +53,7 @@ object Hammurabi extends App {
     var foodPerPerson = 20        // annual food (20 bushels per year for 1 person)
     var costToPlantInBushels = 2  // how much it costs to plant per acres of land
     var landFarmedPerPerson = 10  // each person can farm 10 acres
+    var totalStarved = 0
 
     printIntroductoryMessage()
 
@@ -67,7 +68,7 @@ breakable {
                  |In the previous year $starved people starved to death.
                  |In the previous year $immigrants people entered the kingdom.
                  |The population is now $population.
-                 |We harvested $harvest bushels at 3 bushels per acre.
+                 |We harvested $harvest bushels at $bushelsPerAcre bushels per acre.
                  |Rats destroyed $rats_ate bushels, leaving $bushelsInStorage bushels in storage.
                  |The city owns $acresOwned acres of land.
                  |Land is currently worth $pricePerAcre bushels per acre.
@@ -75,7 +76,7 @@ breakable {
       println()
 
 // User Questions
-/*
+
       var acresToBuy = askHowMuchLandToBuy(bushelsInStorage, pricePerAcre)
       acresOwned = acresOwned + acresToBuy
       bushelsInStorage = bushelsInStorage - (acresToBuy * pricePerAcre)
@@ -87,17 +88,16 @@ breakable {
         acresOwned = acresOwned - acresToSell
         bushelsInStorage = bushelsInStorage + (acresToBuy * pricePerAcre)
       }
-*/
+
       var grainsToFeed = askHowMuchToFeedPeople(population, bushelsInStorage, foodPerPerson)
       bushelsInStorage = bushelsInStorage - grainsToFeed
 
-/*
+
       var acresToFarm = askHowManyAcresToPlant(acresOwned, bushelsInStorage, population, costToPlantInBushels, landFarmedPerPerson)
       bushelsInStorage = bushelsInStorage - (acresToFarm * costToPlantInBushels)
 
-      harvest = acresToFarm * bushelsPerAcre
-      bushelsInStorage += harvest
-*/
+
+
 
 // End of Year Summary
 
@@ -105,7 +105,7 @@ println(s"\n======== End of Year $year Summary ========\n")
 
 // Random Events
 // Was there a plague?
-      if (wasAplague) {
+      if (wasPlague) {
         println("There was a plague")
         if (population == 1) plagueDeaths = 1 else plagueDeaths = population / 2
         population = population - plagueDeaths
@@ -117,14 +117,27 @@ println(s"\n======== End of Year $year Summary ========\n")
       val peopleFed = grainsToFeed / foodPerPerson
       starved = population - peopleFed
       if (starved < 0) starved = 0
+      totalStarved += starved
+
+      val percentStarved = ((starved.toFloat / population.toFloat) * 100).toInt
+
+      if (percentStarved > 45) {
+        println(s"$percentStarved% of the population were not fed!!!")
+        println("YOU WERE FORCEFULLY THROWN OUT OF OFFICE!!!\n")
+        printClose(year)
+        break
+      } else {
+        println(s"$percentStarved% of the population were not fed!")
+      }
+
       population -= starved
 
       if (starved == 1) {
-        println(s"$starved person was not fed.")
-      } else println(s"$starved people were not fed.")
+        println(s"$starved person starved.")
+      } else println(s"$starved people starved.")
 // If anyone left?
       if (population == 0) {
-        println("Your poplulation is 0.\nThat's all Folks!!!\n")
+        println("Your population is 0.\nThat's all Folks!!!\n")
         printClose(year)
         break
       }
@@ -132,20 +145,39 @@ println(s"\n======== End of Year $year Summary ========\n")
       if (starved == 0 ) {
         immigrants = (20 * acresOwned + bushelsInStorage) / (100 * population) + 1}
       else immigrants = 0
-
       println(s"$immigrants people came to the city.")
+// How good was the harvest
+      bushelsPerAcre = Random.nextInt(8)+1
+      harvest = acresToFarm * bushelsPerAcre
+      bushelsInStorage += harvest
+      println(s"$harvest bushels were harvested from $acresToFarm acres.")
+// Was there a rat infestation?
+      if (wereRats) {
+        rats_ate = (((Random.nextInt(3)+1).toDouble / 10.toDouble) * bushelsInStorage).toInt
+        println(s"There was a rat infestation! $rats_ate bushels were eaten")
 
+      } else {
+        println("There were no rats, Phew!")
+        rats_ate = 0
+      }
+      bushelsInStorage -= rats_ate
+// Next years land price
+      pricePerAcre = Random.nextInt(7)+17
+      println(s"Next years land price is $pricePerAcre per acre.\n")
 
-
-
-
-
+// Finish End of year report
+      printClose(year)
 
     } // end: yearly for loop
 
     } // end: breakable
 
-  } // end: hammurabi method
+    finalSummary(acresOwned, totalStarved)
+
+  } // end: hammurabi function
+
+// Final Messages
+
 
 
 // Helper Functions
@@ -155,18 +187,33 @@ println(s"\n======== End of Year $year Summary ========\n")
    }
  }
 
+  def finalSummary (acres: Int, starvers: Int) = {
+
+    if (acres > 1000) {
+      println(s"Good Job! ${acres - 1000} acres were added over your reign!")
+    } else {
+      println(s"Sadly no acres were added over your reign")
+    }
+
+    println(s"$starvers people starved during the decade.")
+
+  }
 
 // Random Event Definitions
-  def wasAplague: Boolean = {
+  def wasPlague: Boolean = {
 
     val r: Int = Random.nextInt(100)+1
-    // println(s"\nRand num: $r")
-
-    //if (r < 51) true else false
-
+    if (r < 16) true else false
     // Always a plague
-     true
+    // true
+  }
 
+  def wereRats: Boolean = {
+
+    val r: Int = Random.nextInt(100) + 1
+    if (r < 41) true else false
+    // Always rat infestation
+    //true
   }
 
 // Advise Decisions
