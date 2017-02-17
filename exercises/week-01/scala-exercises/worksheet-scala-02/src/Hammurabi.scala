@@ -1,5 +1,6 @@
 import scala.io.StdIn.readLine
 import scala.util.Random
+import scala.util.control.Breaks._
 
 object Hammurabi extends App {
 
@@ -55,6 +56,8 @@ object Hammurabi extends App {
 
     printIntroductoryMessage()
 
+breakable {
+
     for (year <- 1 to 10) {
 
       // Yearly Summary
@@ -65,15 +68,14 @@ object Hammurabi extends App {
                  |In the previous year $immigrants people entered the kingdom.
                  |The population is now $population.
                  |We harvested $harvest bushels at 3 bushels per acre.
-                 |Rats destroyed $rats_ate bushels, leaving 2800 bushels in storage.
+                 |Rats destroyed $rats_ate bushels, leaving $bushelsInStorage bushels in storage.
                  |The city owns $acresOwned acres of land.
                  |Land is currently worth $pricePerAcre bushels per acre.
                  |There were $plagueDeaths deaths from the plague.""".stripMargin)
       println()
 
-      // User Questions
-
-
+// User Questions
+/*
       var acresToBuy = askHowMuchLandToBuy(bushelsInStorage, pricePerAcre)
       acresOwned = acresOwned + acresToBuy
       bushelsInStorage = bushelsInStorage - (acresToBuy * pricePerAcre)
@@ -85,47 +87,89 @@ object Hammurabi extends App {
         acresOwned = acresOwned - acresToSell
         bushelsInStorage = bushelsInStorage + (acresToBuy * pricePerAcre)
       }
-
+*/
       var grainsToFeed = askHowMuchToFeedPeople(population, bushelsInStorage, foodPerPerson)
       bushelsInStorage = bushelsInStorage - grainsToFeed
-      val peopleFed = grainsToFeed / foodPerPerson
-      starved = population - peopleFed
-      population -= starved
 
-
+/*
       var acresToFarm = askHowManyAcresToPlant(acresOwned, bushelsInStorage, population, costToPlantInBushels, landFarmedPerPerson)
       bushelsInStorage = bushelsInStorage - (acresToFarm * costToPlantInBushels)
 
       harvest = acresToFarm * bushelsPerAcre
       bushelsInStorage += harvest
+*/
 
-      // Random Events
+// End of Year Summary
 
-      // Was there a plague?
+println(s"\n======== End of Year $year Summary ========\n")
 
-      if (wasAPlague) {
-        println("There was a plague\n")
+// Random Events
+// Was there a plague?
+      if (wasAplague) {
+        println("There was a plague")
         if (population == 1) plagueDeaths = 1 else plagueDeaths = population / 2
         population = population - plagueDeaths
       } else {
-        println("There was no plague\n")
+        println("There was no plague")
+        plagueDeaths = 0
       }
-    }
+// Did anyone starve?
+      val peopleFed = grainsToFeed / foodPerPerson
+      starved = population - peopleFed
+      if (starved < 0) starved = 0
+      population -= starved
+
+      if (starved == 1) {
+        println(s"$starved person was not fed.")
+      } else println(s"$starved people were not fed.")
+// If anyone left?
+      if (population == 0) {
+        println("Your poplulation is 0.\nThat's all Folks!!!\n")
+        printClose(year)
+        break
+      }
+// How many people came to the city
+      if (starved == 0 ) {
+        immigrants = (20 * acresOwned + bushelsInStorage) / (100 * population) + 1}
+      else immigrants = 0
+
+      println(s"$immigrants people came to the city.")
 
 
-  }
 
-  def wasAPlague: Boolean = {
+
+
+
+
+    } // end: yearly for loop
+
+    } // end: breakable
+
+  } // end: hammurabi method
+
+
+// Helper Functions
+ def printClose(y: Int) = {
+   if (y < 10) println("=======================================\n") else {
+     println("========================================\n")
+   }
+ }
+
+
+// Random Event Definitions
+  def wasAplague: Boolean = {
 
     val r: Int = Random.nextInt(100)+1
-    println(s"\nRand num: $r")
+    // println(s"\nRand num: $r")
 
-    //if (r < 16) true else false
+    //if (r < 51) true else false
 
     // Always a plague
-    true
+     true
 
   }
+
+// Advise Decisions
 
   def printBuyingAdvice(b: Int, p: Int) = println(s"\nYou have $b bushels in storage and can buy up to ${b/p} acres.")
   def printSellingAdvice(a: Int) = println(s"\nYou have $a acres available to sell.")
