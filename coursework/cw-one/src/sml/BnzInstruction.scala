@@ -11,10 +11,8 @@ class BnzInstruction(label: String, op: String, val op1: Int, val op2: String)
   }
 
   override def toString(): String = {
-    super.toString + " " + op1 + " goto " + op2
+    super.toString + " " + op1 + " goto " + op2 + "\n"
   }
-
-
 }
 
 object BnzInstruction {

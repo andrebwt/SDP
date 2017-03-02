@@ -1,8 +1,5 @@
 package sml
 
-import scala.reflect.runtime.{universe => ru}
-
-
 /*
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  */
@@ -15,9 +12,6 @@ class Translator(fileName: String) {
   private final val OUT = "out"
   private final val DIV = "div"
 
-  def getTypeTag[T: ru.TypeTag](obj: T) = ru.typeTag[T]
-
-
   /**
     * translate the small program in the file into lab (the labels) and prog (the program)
     */
@@ -28,37 +22,8 @@ class Translator(fileName: String) {
     val lines = Source.fromFile(fileName).getLines
     for (line <- lines) {
       val fields = line.split(" ")
-      //val theType = getTypeTag(line).tpe
-      //println(s"The type of object is: $theType.")
-      //println(s"The line read is: $line.")
-
       if (fields.length > 0) {
-
-        // Get the type of instruction
-        val ins = fields(1)
-        println(s"The type of instruction is: $ins.")
-
-        // Get the name of the class needed
-        val insName = ins.substring(0, 1).toUpperCase() + ins.substring(1).toLowerCase() + "Instruction"
-        println(s"The instruction classname is: $insName.")
-
-        // Get the Class object for the named class
-        val insClass = Class.forName("sml." + insName)
-        println(s"The instruction object is: $insClass.")
-
-        // Reflect Class
-        val mirror  = ru.runtimeMirror(getClass.getClassLoader)
-        val classInstruction = mirror.classSymbol(insClass)
-        val classMirror = mirror.reflectClass(classInstruction)
-
-        println(s"The reflected class is: $classMirror .")
-
         labels.add(fields(0))
-
-
-
-
-
         fields(1) match {
           case ADD =>
             program = program :+ AddInstruction(fields(0), fields(2).toInt, fields(3).toInt, fields(4).toInt)
@@ -77,11 +42,7 @@ class Translator(fileName: String) {
           case x =>
             println(s"Unknown instruction $x")
         }
-
-
-
       }
-
     }
     new Machine(labels, program)
   }

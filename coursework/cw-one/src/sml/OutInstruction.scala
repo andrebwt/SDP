@@ -7,7 +7,7 @@ class OutInstruction (label: String, op: String, regRequest: Int) extends Instru
   }
 
   override def toString(): String = {
-    super.toString + " register " + regRequest
+    super.toString + " register " + regRequest + "\n"
   }
 }
 
