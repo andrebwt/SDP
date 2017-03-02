@@ -10,6 +10,7 @@ class Translator(fileName: String) {
   private final val MUL = "mul"
   private final val SUB = "sub"
   private final val OUT = "out"
+  private final val DIV = "div"
 
   /**
     * translate the small program in the file into lab (the labels) and prog (the program)
@@ -28,6 +29,8 @@ class Translator(fileName: String) {
             program = program :+ AddInstruction(fields(0), fields(2).toInt, fields(3).toInt, fields(4).toInt)
           case LIN =>
             program = program :+ LinInstruction(fields(0), fields(2).toInt, fields(3).toInt)
+          case OUT =>
+            program = program :+ OutInstruction(fields(0), fields(2).toInt)
           case x =>
             println(s"Unknown instruction $x")
         }
