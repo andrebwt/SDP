@@ -1,7 +1,9 @@
 package factory
 
+import java.util
+
 import bc.{ByteCodeFactory, ByteCodeParser}
-import vendor.ProgramParser
+import vendor.{Instruction, ProgramParser}
 import vm.{VirtualMachine, VirtualMachineParser}
 
 /**
@@ -14,7 +16,7 @@ object VirtualMachineFactory {
   def byteCodeFactory: ByteCodeFactory = ???
 
   // TODO
-  def vendorParser: ProgramParser = ???
+  def vendorParser: ProgramParser = new ProgramParserImpl
 
   // TODO
   def byteCodeParser: ByteCodeParser = ???
@@ -24,4 +26,29 @@ object VirtualMachineFactory {
 
   // TODO
   def virtualMachine: VirtualMachine = ???
+}
+
+class ProgramParserImpl extends ProgramParser {
+
+  def parse(file: String): InstructionList = {
+
+    import scala.io.Source
+
+    var returnList= new util.ArrayList[Instruction]
+
+    val lines = Source.fromFile(file).getLines
+
+    for (line <- lines) {
+      //var args = new Array[Int]
+      val fields = line.split(" ")
+
+      val name = fields(0)
+
+      val args =  fields.drop(1).map(_.toInt).toVector
+      returnList.add(new Instruction(name, args))
+    }
+    returnList.toArray.map(_.asInstanceOf[Instruction]).toVector
+  }
+
+  def parseString(string: String): InstructionList = ???
 }
