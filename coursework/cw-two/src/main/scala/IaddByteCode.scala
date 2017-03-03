@@ -1,7 +1,7 @@
 import bc.{ByteCode, ByteCodeValues}
 import vm.VirtualMachine
 
-class IconstByteCode extends ByteCode {
+class IaddByteCode extends ByteCode {
   /**
     * A unique byte value representing the bytecode. An implementation
     * will set this to the bytecode corresponding to the name of the
@@ -9,7 +9,7 @@ class IconstByteCode extends ByteCode {
     */
 
 
-  val code: Byte = bytecode.getOrElse("iconst", 0)
+  val code: Byte = bytecode.getOrElse("iadd", 0)
 
   /**
     * Returns a new [[VirtualMachine]] after executing this bytecode operation.
@@ -19,7 +19,7 @@ class IconstByteCode extends ByteCode {
     */
 
   def execute(vm: VirtualMachine): VirtualMachine = {
-        vm.push(5)
+    vm.push(vm.pop()._1 + vm.pop()._1)
   }
 
 
