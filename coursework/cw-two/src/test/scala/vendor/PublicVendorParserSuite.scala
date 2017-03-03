@@ -6,10 +6,13 @@ import org.scalatest.FunSuite
 class PublicVendorParserSuite extends FunSuite {
   val vp = VirtualMachineFactory.vendorParser
 
+
   test("[3] vendor parser should parse a program string correctly") {
     val insts = vp.parseString("iconst 4\niconst 5\niadd\nprint")
     assert(insts.length == 4)
   }
+
+
 
   test("[4] vendor parser should parse a program file correctly") {
     val insts = vp.parse("programs/p03.vm")
@@ -22,4 +25,5 @@ class PublicVendorParserSuite extends FunSuite {
       assert(insts(i).name == all(i))
     }
   }
+
 }
