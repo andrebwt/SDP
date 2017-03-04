@@ -54,11 +54,17 @@ class Translator(fileName: String) {
         println(s"The reflected class is: $classMirror .")
 
         val ctor = classInstruction.primaryConstructor.asMethod
+        val ctorMirror = classMirror.reflectConstructor(ctor).symbol.asMethod
 
+
+
+        val ctorParam = ctor.paramLists.flatten
+        val ctorParamTypes = ctorParam.map()
+
+        println(s"The constructor mirror is: $ctorMirror .")
         println(s"The constructor is: $ctor .")
+        println(s"The constructor parameters are: $ctorParam .")
 
-
-        // labels.add(fields(0))
 
 
 
