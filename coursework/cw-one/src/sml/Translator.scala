@@ -1,5 +1,6 @@
 package sml
 
+import scala.collection.mutable.ListBuffer
 import scala.reflect.runtime.{universe => ru}
 
 
@@ -36,36 +37,45 @@ class Translator(fileName: String) {
 
         // Get the type of instruction
         val ins = fields(1)
-        println(s"The type of instruction is: $ins.")
+        //println(s"The type of instruction is: $ins.")
 
         // Get the name of the class needed
         val insName = ins.substring(0, 1).toUpperCase() + ins.substring(1).toLowerCase() + "Instruction"
-        println(s"The instruction classname is: $insName.")
+        //println(s"The instruction classname is: $insName.")
 
         // Get the Class object for the named class
         val insClass = Class.forName("sml." + insName)
-        println(s"The instruction object is: $insClass.")
+        //println(s"The instruction object is: $insClass.")
 
         // Reflect Class
         val mirror  = ru.runtimeMirror(getClass.getClassLoader)
-        val classInstruction = mirror.classSymbol(insClass)
-        val classMirror = mirror.reflectClass(classInstruction)
+        val className = mirror.classSymbol(insClass)
+        val classMirror = mirror.reflectClass(className)
 
         println(s"The reflected class is: $classMirror .")
 
-        val ctor = classInstruction.primaryConstructor.asMethod
-        val ctorMirror = classMirror.reflectConstructor(ctor).symbol.asMethod
+        val ctor = className.primaryConstructor.asMethod
+        val ctorMirror = classMirror.reflectConstructor(ctor)
 
+        val ctorParam = ctor.paramLists
+        val paramTypes = new ListBuffer[Any]()
 
+        for (p <- ctorParam; j <- p) {
+          println(j.info.toString)
 
-        val ctorParam = ctor.paramLists.flatten
-        val ctorParamTypes = ctorParam.map()
+        }
 
-        println(s"The constructor mirror is: $ctorMirror .")
-        println(s"The constructor is: $ctor .")
         println(s"The constructor parameters are: $ctorParam .")
 
+        //println(s"The constructor mirror is: $ctorMirror .")
 
+        println(s"The parameter types are: $paramTypes")
+
+        //println(s"The constructor is: $ctor .")
+
+
+        //val nextInstruction = ctorMirror.apply(paramTypes).asInstanceOf[Instruction]
+        //println(s"Added Instruction: $nextInstruction .")
 
 
 
@@ -90,6 +100,7 @@ class Translator(fileName: String) {
         }
 
         labels.add(fields(0))
+
 
       }
 
