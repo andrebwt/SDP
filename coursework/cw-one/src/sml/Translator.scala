@@ -53,7 +53,12 @@ class Translator(fileName: String) {
 
         println(s"The reflected class is: $classMirror .")
 
-        labels.add(fields(0))
+        val ctor = classInstruction.primaryConstructor.asMethod
+
+        println(s"The constructor is: $ctor .")
+
+
+        // labels.add(fields(0))
 
 
 
@@ -78,7 +83,7 @@ class Translator(fileName: String) {
             println(s"Unknown instruction $x")
         }
 
-
+        labels.add(fields(0))
 
       }
 
