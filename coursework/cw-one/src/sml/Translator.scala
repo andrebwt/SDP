@@ -35,51 +35,58 @@ class Translator(fileName: String) {
 
       if (fields.length > 0) {
 
-        // Get the type of instruction
-        val ins = fields(1)
-        //println(s"The type of instruction is: $ins.")
+        try {
 
-        // Get the name of the class needed
-        val insName = ins.substring(0, 1).toUpperCase() + ins.substring(1).toLowerCase() + "Instruction"
-        //println(s"The instruction classname is: $insName.")
+          // Get the type of instruction
+          val ins = fields(1)
+          //println(s"The type of instruction is: $ins.")
 
-        // Get the Class object for the named class
-        val insClass = Class.forName("sml." + insName)
-        //println(s"The instruction object is: $insClass.")
+          // Get the name of the class needed
+          val insName = ins.substring(0, 1).toUpperCase() + ins.substring(1).toLowerCase() + "Instruction"
+          //println(s"The instruction classname is: $insName.")
 
-        // Reflect Class
-        val mirror  = ru.runtimeMirror(getClass.getClassLoader)
-        val className = mirror.classSymbol(insClass)
-        val classMirror = mirror.reflectClass(className)
+          // Get the Class object for the named class
+          val insClass = Class.forName("sml." + insName)
+          //println(s"The instruction object is: $insClass.")
 
-        println(s"The reflected class is: $classMirror .")
+          // Reflect Class
+          val mirror = ru.runtimeMirror(getClass.getClassLoader)
+          val className = mirror.classSymbol(insClass)
+          val classMirror = mirror.reflectClass(className)
 
-        val ctor = className.primaryConstructor.asMethod
-        val ctorMirror = classMirror.reflectConstructor(ctor)
+          //println(s"The reflected class is: $classMirror .")
 
-        val ctorParam = ctor.paramLists
-        val paramTypes = new ListBuffer[Any]()
+          val ctor = className.primaryConstructor.asMethod
+          val ctorMirror = classMirror.reflectConstructor(ctor)
 
-        for (p <- ctorParam; j <- p) {
-          println(j.info.toString)
+          val ctorParam = ctor.paramLists.flatten
 
+          var insParams = new ListBuffer[Any]()
+
+          //for (p <- ctorParam) println(p.info.toString)
+          //for (p <- ctorParam) insParams.append(p.info)
+
+          var fieldNum = 0
+
+          for (p <- ctorParam) {
+
+            if (p.info.toString == "String") {
+              insParams.append(fields(fieldNum))
+            } else insParams.append(fields(fieldNum).toInt)
+
+            fieldNum += 1
+          }
+
+          //println(s"The parameter types are: ${insParams}")
+
+          labels.add(fields(0))
+          val nextInstruction = ctorMirror.apply(insParams: _*).asInstanceOf[Instruction]
+          program = program :+ nextInstruction
+
+        } catch {
+            case e: java.lang.ClassNotFoundException => println("Illegal Instruction")
         }
-
-        println(s"The constructor parameters are: $ctorParam .")
-
-        //println(s"The constructor mirror is: $ctorMirror .")
-
-        println(s"The parameter types are: $paramTypes")
-
-        //println(s"The constructor is: $ctor .")
-
-
-        //val nextInstruction = ctorMirror.apply(paramTypes).asInstanceOf[Instruction]
-        //println(s"Added Instruction: $nextInstruction .")
-
-
-
-
+/*
         fields(1) match {
           case ADD =>
             program = program :+ AddInstruction(fields(0), fields(2).toInt, fields(3).toInt, fields(4).toInt)
@@ -98,12 +105,8 @@ class Translator(fileName: String) {
           case x =>
             println(s"Unknown instruction $x")
         }
-
-        labels.add(fields(0))
-
-
+*/
       }
-
     }
     new Machine(labels, program)
   }
