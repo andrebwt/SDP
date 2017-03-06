@@ -5,6 +5,7 @@ import java.util
 import bc.{ByteCodeFactory, ByteCodeParser}
 import vendor.{Instruction, ProgramParser}
 import vm.{VirtualMachine, VirtualMachineParser}
+import parsers._
 
 /**
   * The `VirtualMachineFactory` follows the *factory pattern*. It provides
@@ -19,7 +20,7 @@ object VirtualMachineFactory {
   def vendorParser: ProgramParser = ProgramParserImpl()
 
   // TODO
-  def byteCodeParser: ByteCodeParser = ???
+  def byteCodeParser: ByteCodeParser = ByteCodeParserImpl()
 
   // TODO
   def virtualMachineParser: VirtualMachineParser = ???

@@ -1,6 +1,7 @@
-package factory
+package parsers
 
 import java.util
+
 import vendor.{Instruction, ProgramParser}
 
 class ProgramParserImpl extends ProgramParser {
