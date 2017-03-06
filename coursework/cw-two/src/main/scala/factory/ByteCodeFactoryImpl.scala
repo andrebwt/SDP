@@ -1,7 +1,7 @@
 package factory
 
-//import bc.{ByteCode, ByteCodeFactory, ByteCodeValues, InvalidBytecodeException}
 import bc._
+import vendor.InvalidInstructionFormatException
 
 
 /**
@@ -9,7 +9,8 @@ import bc._
   * [[ByteCode]] objects. You will need to extend this to provide
   * your own implementation of a [[ByteCodeFactory]].
   */
-class ByteCodeFactoryImpl extends ByteCodeFactory {
+class ByteCodeFactoryImpl extends ByteCodeFactory with ByteCodeValues {
+
 
   /**
     * Returns a [[ByteCode]].
@@ -27,10 +28,17 @@ class ByteCodeFactoryImpl extends ByteCodeFactory {
     * @return a new bytecode object
     */
   def make(byte: Byte, args: Int*): ByteCode = {
-    byte match {
-      case ByteCode. =>
-  }
 
+    val ADD = bytecode.getOrElse("iadd",0)
+    val CONST = bytecode.getOrElse("iconst",0)
+
+
+    byte match {
+      case ADD  => new IaddByteCode(byte)
+      case CONST  => new IconstByteCode(byte, args(0))
+      case _ => throw new InvalidBytecodeException("Invalid bytecode provided")
+    }
+  }
 }
 
 object ByteCodeFactoryImpl {
