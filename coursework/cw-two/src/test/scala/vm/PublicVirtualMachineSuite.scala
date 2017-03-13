@@ -8,10 +8,25 @@ class PublicVirtualMachineSuite extends FunSuite {
   val bcp = VirtualMachineFactory.byteCodeParser
   val vm  = VirtualMachineFactory.virtualMachine
 
+  test("[10] a virtual machine should execute p01.vm") {
+    val bc  = vmp.parse("programs/p01.vm")
+    val vm2 = vm.execute(bc)
+  }
+
+  test("[10] p03.vm should throw an IllegalArgumentException on attempting modulus 0") {
+    assertThrows[IllegalArgumentException] {
+      val bc  = vmp.parse("programs/p03.vm")
+      val vm2 = vm.execute(bc)
+    }
+  }
+
   test("[10] a virtual machine should execute a program") {
     val bc  = vmp.parse("programs/p05.vm")
     val vm2 = vm.execute(bc)
   }
+
+
+
 
   test("[2] iconst should work correctly") {
     val bc  = vmp.parseString("iconst 1")
@@ -49,4 +64,5 @@ class PublicVirtualMachineSuite extends FunSuite {
     assert(next._2.state(0) == 1)
     assert(next._2.state(1) == 2)
   }
+
 }
