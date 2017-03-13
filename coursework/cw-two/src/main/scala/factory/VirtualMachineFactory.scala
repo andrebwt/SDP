@@ -6,6 +6,7 @@ import bc.{ByteCodeFactory, ByteCodeParser}
 import vendor.{Instruction, ProgramParser}
 import vm.{VirtualMachine, VirtualMachineParser}
 import parsers._
+import vmImp._
 
 /**
   * The `VirtualMachineFactory` follows the *factory pattern*. It provides
@@ -26,5 +27,5 @@ object VirtualMachineFactory {
   def virtualMachineParser: VirtualMachineParser = VirtualMachineParserImpl()
 
   // TODO
-  def virtualMachine: VirtualMachine = ???
+  def virtualMachine: VirtualMachine = VirtualMachineImpl()
 }

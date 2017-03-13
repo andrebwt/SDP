@@ -42,7 +42,6 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues 
     val byteVector = byteList.toArray.map(_.asInstanceOf[Byte]).toVector
 
     bytecodeParser.parse(byteVector)
-
   }
 
   /**
@@ -55,8 +54,21 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues 
     * @param str a string containing a program
     * @return a vector of bytecodes
     */
-  def parseString(str: String): Vector[ByteCode] = ???
+  def parseString(str: String): Vector[ByteCode] = {
+    val instructionList: Vector[Instruction] = programParser.parseString(str)
 
+    var byteList = new util.ArrayList[Byte]
+
+    for (instruction <- instructionList) {
+      byteList.add(bytecode(instruction.name))
+      for (number <- instruction.args) {
+        byteList.add(number.toByte)
+      }
+    }
+    val byteVector = byteList.toArray.map(_.asInstanceOf[Byte]).toVector
+
+    bytecodeParser.parse(byteVector)
+  }
 }
 
 object VirtualMachineParserImpl {

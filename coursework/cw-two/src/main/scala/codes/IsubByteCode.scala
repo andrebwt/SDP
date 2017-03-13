@@ -21,6 +21,8 @@ class IsubByteCode(byte: Byte) extends ByteCode {
     */
 
   def execute(vm: VirtualMachine): VirtualMachine = {
-    vm.push(vm.pop()._1 - vm.pop()._1)
+    val x = vm.pop()._1
+    val y = vm.pop()._1
+    vm.push(x - y)
   }
 }
