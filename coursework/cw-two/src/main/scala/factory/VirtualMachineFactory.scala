@@ -23,7 +23,7 @@ object VirtualMachineFactory {
   def byteCodeParser: ByteCodeParser = ByteCodeParserImpl()
 
   // TODO
-  def virtualMachineParser: VirtualMachineParser = ???
+  def virtualMachineParser: VirtualMachineParser = VirtualMachineParserImpl()
 
   // TODO
   def virtualMachine: VirtualMachine = ???
