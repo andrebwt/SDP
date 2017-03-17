@@ -28,11 +28,12 @@ class ProgramParserImpl extends ProgramParser with ByteCodeValues {
       val name = fields(0)
       val args =  fields.drop(1).map(_.toInt).toVector
 
-      if (names.contains(fields(0)) && args.forall(a => a.isInstanceOf[Int]))
+      if (names.contains(fields(0)) && args.forall(a => a.isInstanceOf[Int])) {
         returnList.add(new Instruction(name, args))
-      else
+      }
+      else {
         throw new InvalidBytecodeException("Invalid bytecode provided")
-
+      }
     }
     returnList.toArray.map(_.asInstanceOf[Instruction]).toVector
   }
@@ -40,6 +41,6 @@ class ProgramParserImpl extends ProgramParser with ByteCodeValues {
 
 object ProgramParserImpl {
 
-  def apply() = new ProgramParserImpl
+  def apply() : ProgramParser = new ProgramParserImpl
 
 }

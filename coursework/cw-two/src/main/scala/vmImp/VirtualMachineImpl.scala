@@ -100,6 +100,6 @@ class VirtualMachineImpl extends VirtualMachine {
 
 object VirtualMachineImpl {
 
-  def apply() = new VirtualMachineImpl
+  def apply() : VirtualMachine = new VirtualMachineImpl
 
 }

@@ -65,5 +65,5 @@ class ByteCodeFactoryImpl extends ByteCodeFactory with ByteCodeValues {
 }
 
 object ByteCodeFactoryImpl {
-  def apply() = new ByteCodeFactoryImpl
+  def apply() : ByteCodeFactory = new ByteCodeFactoryImpl
 }

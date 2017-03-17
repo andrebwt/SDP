@@ -62,6 +62,6 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues 
 }
 object VirtualMachineParserImpl {
 
-  def apply() = new VirtualMachineParserImpl
+  def apply() : VirtualMachineParser = new VirtualMachineParserImpl
 
 }

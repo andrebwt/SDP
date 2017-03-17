@@ -21,6 +21,6 @@ class IincByteCode(byte: Byte) extends ByteCode {
     */
 
   def execute(vm: VirtualMachine): VirtualMachine = {
-    vm.push(vm.pop()._1+1)
+    vm.push(vm.pop()._1 + 1)
   }
 }

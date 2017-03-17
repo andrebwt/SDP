@@ -61,7 +61,5 @@ class ByteCodeParserImpl extends ByteCodeParser {
 }
 
 object ByteCodeParserImpl {
-
-  def apply() = new ByteCodeParserImpl
-
+  def apply() : ByteCodeParser = new ByteCodeParserImpl
 }
