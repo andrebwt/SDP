@@ -23,6 +23,7 @@ class IdivByteCode(byte: Byte) extends ByteCode {
   def execute(vm: VirtualMachine): VirtualMachine = {
     val x = vm.pop()._1
     val y = vm.pop()._1
+    if (y != 0) vm.push(x / y) else throw new IllegalArgumentException(s"$x / $y is undefined")
     vm.push(x / y)
   }
 }

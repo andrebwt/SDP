@@ -72,9 +72,14 @@ class VirtualMachineImpl extends VirtualMachine {
     *         new virtual machine
     */
   def pop(): (Int, VirtualMachine) = {
-    val head  = vmStack.head
-    vmStack = vmStack.tail
-    (head, this)
+    if (vmStack.isEmpty) {
+      throw new NoSuchElementException("Insufficient constants on the stack")
+    }
+    else {
+      val head  = vmStack.head
+      vmStack = vmStack.tail
+      (head, this)
+    }
   }
 
   /**

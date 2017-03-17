@@ -12,8 +12,6 @@ class PublicVendorParserSuite extends FunSuite {
     assert(insts.length == 4)
   }
 
-
-
   test("[4] vendor parser should parse a program file correctly") {
     val insts = vp.parse("programs/p03.vm")
     assert(insts.length == 20)
@@ -23,6 +21,12 @@ class PublicVendorParserSuite extends FunSuite {
       "iconst", "irem", "ineg", "idec", "iinc", "idup", "print", "print")
     for (i <- insts.indices) {
       assert(insts(i).name == all(i))
+    }
+  }
+
+  test("vendor parser should throw an IllegalArgumentException if constant is not an integer ") {
+    intercept[IllegalArgumentException] {
+    val bc  = vp.parseString("iconst a\niconst b\niadd")
     }
   }
 
