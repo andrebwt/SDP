@@ -7,17 +7,23 @@ import bc.{ByteCodeValues, InvalidBytecodeException}
 
 class ProgramParserImpl extends ProgramParser with ByteCodeValues {
 
+  /** @inheritdoc */
   def parse(file: String): InstructionList = {
     import scala.io.Source
     val lines = Source.fromFile(file).getLines.toArray
     parseLines(lines)
   }
 
+  /** @inheritdoc */
   def parseString(string: String): InstructionList = {
     val lines = string.split("\n")
     parseLines(lines)
   }
 
+  /**
+    * Parses a series of instructions represented as strings into an InstructionList
+    * @param lines an Array of instructions in String form
+    */
   def parseLines(lines: Array[String]): InstructionList = {
 
     val returnList = new util.ArrayList[Instruction]

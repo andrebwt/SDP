@@ -21,15 +21,7 @@ class ByteCodeParserImpl extends ByteCodeParser {
   private final val PRINT = bytecode("print")
 
 
-  /**
-    * Parses a vector of `Byte` into a vector of `ByteCode`.
-    *
-    * You should use [[ByteCodeValues.bytecode]] to help translate
-    * the individual `Byte`s into a correponding [[ByteCode]].
-    *
-    * @param bc a vector of bytes representing bytecodes
-    * @return a vector of `ByteCode` objects
-    */
+  /** @inheritdoc */
   def parse(bc: Vector[Byte]): Vector[ByteCode] = {
 
     var createByte = true

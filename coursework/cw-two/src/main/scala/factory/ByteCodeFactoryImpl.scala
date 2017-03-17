@@ -4,17 +4,7 @@ import bc._
 import codes._
 
 
-/**
-  * [[ByteCodeFactory]] defines a factory interface for creating
-  * [[ByteCode]] objects. You will need to extend this to provide
-  * your own implementation of a [[ByteCodeFactory]].
-  */
 class ByteCodeFactoryImpl extends ByteCodeFactory with ByteCodeValues {
-
-  /*
-"iconst", "iadd", "isub", "imul", "idiv", "irem",
-"ineg", "iinc", "idec", "idup", "iswap", "print")
- */
 
   private final val ADD = bytecode.getOrElse("iadd",0)
   private final val CONST = bytecode.getOrElse("iconst",0)
@@ -30,21 +20,7 @@ class ByteCodeFactoryImpl extends ByteCodeFactory with ByteCodeValues {
   private final val PRINT = bytecode.getOrElse("print",0)
 
 
-  /**
-    * Returns a [[ByteCode]].
-    *
-    * This method creates a new [[ByteCode]] object given the `byte`
-    * that corresponds to the bytecode (see [[ByteCodeValues]]. If
-    * the bytecode requires arguments then an optional integer
-    * argument is provided.
-    *
-    * This method should throw an [[InvalidBytecodeException]] if the
-    * given bytecode value is unknown.
-    *
-    * @param byte the byte code of a bytecode
-    * @param args an optional integer argument (depends on bytecode)
-    * @return a new bytecode object
-    */
+  /** @inheritdoc */
   def make(byte: Byte, args: Int*): ByteCode = {
     byte match {
       case ADD  => new IaddByteCode(byte)
