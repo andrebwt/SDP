@@ -1,6 +1,8 @@
 import scala.collection.mutable.ListBuffer
 
 class ControlUnit {
+
+  // Checks which sensors have been triggered and where
   def pollSensors() {
     val sensors = new ListBuffer[Sensor]()
     sensors += new FireSensor()
