@@ -1,12 +1,14 @@
 import scala.collection.mutable.ListBuffer
 
-class ControlUnit {
+class ControlUnit(sensors: ListBuffer[Sensor]) {
 
-  // Checks which sensors have been triggered and where
+
+  def this() {
+    this(ControlUnit.EMPTY_SENSOR_COLLECTION)
+  }
+
   def pollSensors() {
-    val sensors = new ListBuffer[Sensor]()
-    sensors += new FireSensor()
-    sensors += new SmokeSensor()
+
     for (sensor <- sensors) {
       if (sensor.isTriggered) {
         System.out.println("A " + sensor.getSensorType + " sensor was triggered at " + sensor.getLocation)
@@ -18,4 +20,14 @@ class ControlUnit {
   }
 }
 
-object ControlUnit
+object ControlUnit {
+  // def apply(sensors: ListBuffer[Sensor]): ControlUnit = new ControlUnit(sensors)
+  val EMPTY_SENSOR_COLLECTION = new ListBuffer[Sensor]()
+}
+
+
+// Q3, Responsibilities
+// Creates new sensors and adds them to a collection
+// Checks which sensors have been triggered and where
+
+// Q4, ControlUnit now takes a collection of sensors in the constructor
