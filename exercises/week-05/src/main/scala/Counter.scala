@@ -1,8 +1,8 @@
 
 class Counter(val count: Int) {
 
-  def inc: Counter = new Counter(count + 1)
+  def inc(n: Int = 1) : Counter = new Counter(count + n)
 
-  def dec: Counter = new Counter(count - 1)
+  def dec(n: Int = 1) : Counter = new Counter(count - n)
 
 }

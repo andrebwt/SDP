@@ -7,7 +7,7 @@ class CounterSuite extends FunSuite {
   // Checking libraries imported correctly
   test("one plus one is two")(assert(1 + 1 == 2))
 
-  test("inc and dec without parameters work") (assert(new Counter(10).inc.dec.inc.inc.count == 12))
+  test("inc and dec without parameters work") (assert(new Counter(10).inc().dec().inc().inc().count == 12))
 
 
 }
