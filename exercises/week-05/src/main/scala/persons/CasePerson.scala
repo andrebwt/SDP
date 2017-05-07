@@ -1,4 +1,4 @@
-package people
+package persons
 
 case class CasePerson(val first: String, val last: String)
 

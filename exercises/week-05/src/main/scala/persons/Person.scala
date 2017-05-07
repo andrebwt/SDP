@@ -1,4 +1,4 @@
-package people
+package persons
 
 class Person(val first: String, val last: String)
 
