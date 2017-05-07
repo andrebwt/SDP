@@ -30,6 +30,9 @@ class FilmSuite extends FunSuite {
     val jc = new Director("James", "Cameron", 54)
     val pj = Director("Peter", "Jackson", 61)
 
+    // Added Films
+    val avatar = Film("Avatar", 2009, 7.8, jc)
+
   test("Director created correctly with new") {
 
     assert(jc.firstName == "James")
@@ -47,10 +50,10 @@ class FilmSuite extends FunSuite {
 
     val nameChange = highPlainsDrifter.copy("L'homme des hautes plaines")
 
-    assert(nameChange.name == "L'homme des hautes plaines")
-    assert(nameChange.yearOfRelease == 1973)
-    assert(nameChange.imdbRating == 7.7)
-    assert(nameChange.director == eastwood)
+      assert(nameChange.name == "L'homme des hautes plaines")
+      assert(nameChange.yearOfRelease == 1973)
+      assert(nameChange.imdbRating == 7.7)
+      assert(nameChange.director == eastwood)
 
   }
 
@@ -58,10 +61,10 @@ class FilmSuite extends FunSuite {
 
     val copyTest = inception.copy().copy().copy()
 
-    assert(copyTest.name == "Inception")
-    assert(copyTest.yearOfRelease == 2010)
-    assert(copyTest.imdbRating == 8.8)
-    assert(copyTest.director == nolan)
+      assert(copyTest.name == "Inception")
+      assert(copyTest.yearOfRelease == 2010)
+      assert(copyTest.imdbRating == 8.8)
+      assert(copyTest.director == nolan)
 
   }
 
@@ -76,6 +79,16 @@ class FilmSuite extends FunSuite {
 
     assert(Director.older(jc, pj) == jc) // James Cameron is older than Peter Jackson
     assert(Director.older(pj, jc) == jc)
+
+  }
+
+  test("Film created correctly with apply method") {
+
+    assert(avatar.name == "Avatar")
+    assert(avatar.yearOfRelease == 2009)
+    assert(avatar.imdbRating == 7.8)
+    assert(avatar.director == jc)
+
 
   }
 
