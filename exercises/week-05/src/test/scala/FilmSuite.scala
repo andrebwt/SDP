@@ -26,15 +26,15 @@ class FilmSuite extends FunSuite {
     val huntForRedOctober = new Film("The Hunt for Red October", 1990, 7.6, mcTiernan)
     val thomasCrownAffair = new Film("The Thomas Crown Affair", 1999, 6.8, mcTiernan)
 
-    val testDirector = new Director("James", "Cameron", 54)
+    // Added Directors
+    val jc = new Director("James", "Cameron", 54)
+    val pj = Director("Peter", "Jackson", 61)
 
+  test("Director created correctly with new") {
 
-
-  test("Director created correctly") {
-
-    assert(testDirector.firstName == "James")
-    assert(testDirector.lastName == "Cameron")
-    assert(testDirector.yearOfBirth == 54)
+    assert(jc.firstName == "James")
+    assert(jc.lastName == "Cameron")
+    assert(jc.yearOfBirth == 54)
   }
 
   test("Provided tests pass") {
@@ -54,6 +54,29 @@ class FilmSuite extends FunSuite {
 
   }
 
+  test("Copy method works multiple times without parameters") {
 
+    val copyTest = inception.copy().copy().copy()
+
+    assert(copyTest.name == "Inception")
+    assert(copyTest.yearOfRelease == 2010)
+    assert(copyTest.imdbRating == 8.8)
+    assert(copyTest.director == nolan)
+
+  }
+
+  test("Director created correctly with apply method") {
+
+    assert(pj.firstName == "Peter")
+    assert(pj.lastName == "Jackson")
+    assert(pj.yearOfBirth == 61)
+  }
+
+  test("older method works correctly") {
+
+    assert(Director.older(jc, pj) == jc) // James Cameron is older than Peter Jackson
+    assert(Director.older(pj, jc) == jc)
+
+  }
 
 }
