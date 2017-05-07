@@ -21,4 +21,28 @@ class PersonSuite extends FunSuite {
 
   }
 
+  test("CasePerson created with 2 parameters") {
+    val jd3 = new Person("John", "Doe")
+
+    assert(jd3.first == "John")
+    assert(jd3.last == "Doe")
+
+  }
+
+  test("CasePerson created with companion object") {
+    val jd4 = CasePerson("John Doe")
+
+    assert(jd4.first == "John")
+    assert(jd4.last == "Doe")
+
+  }
+
+  test("CasePerson created with case class default apply method") {
+    val jd4 = CasePerson("John", "Doe")
+
+    assert(jd4.first == "John")
+    assert(jd4.last == "Doe")
+
+  }
+
 }
