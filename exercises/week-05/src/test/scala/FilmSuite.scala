@@ -54,7 +54,6 @@ class FilmSuite extends FunSuite {
       assert(nameChange.yearOfRelease == 1973)
       assert(nameChange.imdbRating == 7.7)
       assert(nameChange.director == eastwood)
-
   }
 
   test("Copy method works multiple times without parameters") {
@@ -65,7 +64,6 @@ class FilmSuite extends FunSuite {
       assert(copyTest.yearOfRelease == 2010)
       assert(copyTest.imdbRating == 8.8)
       assert(copyTest.director == nolan)
-
   }
 
   test("Director created correctly with apply method") {
@@ -79,7 +77,6 @@ class FilmSuite extends FunSuite {
 
     assert(Director.older(jc, pj) == jc) // James Cameron is older than Peter Jackson
     assert(Director.older(pj, jc) == jc)
-
   }
 
   test("Film created correctly with apply method") {
@@ -93,7 +90,5 @@ class FilmSuite extends FunSuite {
   test("CaseFilm oldest at the time method works correctly") {
 
     assert(CaseFilm.oldestDirectorAtTheTime(avatar, inception) == jc)
-
   }
-
 }

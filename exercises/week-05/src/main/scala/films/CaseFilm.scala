@@ -17,5 +17,4 @@ object CaseFilm {
   def oldestDirectorAtTheTime(filmA: Film, filmB: Film): Director = {
     if (filmA.ageAtFilming > filmB.ageAtFilming) filmA.director else filmB.director
   }
-
 }
