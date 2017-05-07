@@ -1,3 +1,4 @@
+package counters
 
 class Counter(val count: Int) {
 

@@ -1,3 +1,5 @@
+package counters
+
 
 class Adder(amount: Int) {
 
