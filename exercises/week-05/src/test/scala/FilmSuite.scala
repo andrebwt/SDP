@@ -88,7 +88,11 @@ class FilmSuite extends FunSuite {
     assert(avatar.yearOfRelease == 2009)
     assert(avatar.imdbRating == 7.8)
     assert(avatar.director == jc)
+  }
 
+  test("CaseFilm oldest at the time method works correctly") {
+
+    assert(CaseFilm.oldestDirectorAtTheTime(avatar, inception) == jc)
 
   }
 

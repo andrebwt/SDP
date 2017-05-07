@@ -19,7 +19,4 @@ object Director {
     if(dirA.yearOfBirth < dirB.yearOfBirth) dirA else dirB
 
   }
-
-
-
 }
