@@ -43,5 +43,17 @@ class FilmSuite extends FunSuite {
     assert(invictus.isDirectedBy(nolan) == false) // should be false
   }
 
+  test("Copy method works") {
+
+    val nameChange = highPlainsDrifter.copy("L'homme des hautes plaines")
+
+    assert(nameChange.name == "L'homme des hautes plaines")
+    assert(nameChange.yearOfRelease == 1973)
+    assert(nameChange.imdbRating == 7.7)
+    assert(nameChange.director == eastwood)
+
+  }
+
+
 
 }
