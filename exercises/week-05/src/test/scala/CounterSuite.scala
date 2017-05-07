@@ -19,5 +19,18 @@ class CounterSuite extends FunSuite {
     assert(testCounter2.count == 11)
   }
 
+  test("Counter adjust method works") {
+    val testAdder = new Adder(5)
+    val testCounter3 = new Counter(10).adjust(testAdder)
+
+    assert(testCounter3.count == 15)
+  }
+
+  test("CaseCounter adjust method works") {
+    val testAdder2 = new Adder(5)
+    val testCounter4 = new Counter(10).adjust(testAdder2)
+
+    assert(testCounter4.count == 15)
+  }
 
 }
