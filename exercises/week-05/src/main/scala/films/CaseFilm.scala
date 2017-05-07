@@ -10,8 +10,6 @@ case class CaseFilm(val name: String, val yearOfRelease: Int, val imdbRating: Do
   def highestRating(filmA: Film, filmB: Film): Double = {
     if(filmA.imdbRating > filmB.imdbRating) filmA.imdbRating else filmB.imdbRating
   }
-
-
 }
 
 object CaseFilm {
