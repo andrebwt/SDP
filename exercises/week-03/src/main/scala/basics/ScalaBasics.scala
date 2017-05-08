@@ -75,7 +75,15 @@ object ScalaBasics {
    * @param r the array of integers
    * @return the minimum integer in the array
    */
-  def minFor(r: Array[Int]): Int = ???
+  def minFor(r: Array[Int]): Int = {
+
+    var result = r(0)
+
+    for (e <- r) {
+      result = Math.min(e, result)
+    }
+    result
+  }
 
   /**
    * Write a function called minRecursive that returns the minimum integer in the Array r.
@@ -91,7 +99,11 @@ object ScalaBasics {
    * @param r the array of integers
    * @return the minimum integer in the array
    */
-  def minRecursive(r: Array[Int]): Int = ???
+  def minRecursive(r: Array[Int]): Int = {
+
+    if (r.head == r.min) r.head else minRecursive(r.tail)
+
+  }
 
   /**
    * Return the base 36 equivalent of the BitInt b.
@@ -101,7 +113,7 @@ object ScalaBasics {
    * @param b a big integer
    * @return the base 36 equivalent
    */
-  def base36(b: BigInt): String = ???
+  def base36(b: BigInt): String = b.toString(36)
 
   /**
    * Splits the String s in half.
@@ -124,7 +136,7 @@ object ScalaBasics {
    * @param s the string to split
    * @return the split string as a tuple
    */
-  def splitInHalf(s: String): (String, String) = ???
+  def splitInHalf(s: String): (String, String) = s.splitAt(s.length / 2)
 
   /**
    * Determines if the given string s is a palindrome.
@@ -147,7 +159,13 @@ object ScalaBasics {
    * @param s the potential palindrome
    * @return true if s is a palindrome; false otherwise
    */
-  def isPalindrome(s: String): Boolean = ???
+  def isPalindrome(s: String): Boolean = {
+
+    val normalised = for (i <- s if i.isLetter) yield i.toLower
+
+    normalised == normalised.reverse
+
+  }
 
   /**
    * You don't have to complete this one as we've removed it from the list
@@ -163,7 +181,15 @@ object ScalaBasics {
    * @param cc 0 or more characters
    * @return the sum of the ASCII integers corresponding with the character.
    */
-  //def sumChars(cc: Char*): Int = ???
+   def sumChars(cc: Char*): Int = {
+
+     var sum = 0
+     var charArray = for (i <- cc) yield i.toInt
+
+     charArray.foreach(sum += _)
+
+     sum
+   }
 
   /**
    * Counts the number of space delimited words in the provided array of strings.
@@ -190,6 +216,11 @@ object ScalaBasics {
    * @param lines the lines of a text file
    * @return a map from words to the number of times that word was seen
    */
-  def wordCounter(lines: Array[String]): Map[String, Int] = ???
+  def wordCounter(lines: Array[String]): Map[String, Int] = {
 
+    lines.flatMap(_.split(" "))
+      .foldLeft(Map.empty[String, Int]){
+        (count, word) => count + (word -> (count.getOrElse(word, 0) + 1))
+      }
+  }
 }
