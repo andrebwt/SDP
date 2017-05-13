@@ -1,7 +1,8 @@
 import scala.util.Random
 
-class FireSensor extends Sensor {
+class FireSensor(val location: String = "Unknown Location") extends Sensor {
 
+  val sensorType: String = "Fire Sensor"
   var batteryPercentage: Int = 100
 
   override def isTriggered: Boolean = {
@@ -13,9 +14,9 @@ class FireSensor extends Sensor {
     if (chance < 6) true else false
   }
 
-  override def getLocation: String = null
+  override def getLocation: String = location
 
-  override def getSensorType: String = null
+  override def getSensorType: String = sensorType
 
-  override def getBatteryPercentage: Double = -1
+  override def getBatteryPercentage: Double = batteryPercentage
 }

@@ -12,7 +12,7 @@ object App {
 
     val testSensors = new ListBuffer[Sensor]()
     testSensors += new FireSensor()
-    testSensors += new SmokeSensor()
+    //testSensors += new SmokeSensor()
 
 
 

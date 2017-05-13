@@ -9,7 +9,7 @@ class ControlUnit(sensors: ListBuffer[Sensor]) {
 
   def pollSensors() {
 
-    if (sensors.isEmpty) println("Cannot poll. No sensors have been added")
+    if (sensors.isEmpty) println("Cannot poll, no sensors have been added.")
 
     for (sensor <- sensors) {
       if (sensor.isTriggered) {
