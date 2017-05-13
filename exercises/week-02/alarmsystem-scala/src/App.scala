@@ -26,7 +26,7 @@ object App {
       input = scanner.nextLine
       if (input == POLL) {
         controlUnit.pollSensors()
-      } else println("No Sensors have been added")
+      }
     }
   }
 }
