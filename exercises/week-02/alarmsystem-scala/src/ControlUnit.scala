@@ -9,6 +9,8 @@ class ControlUnit(sensors: ListBuffer[Sensor]) {
 
   def pollSensors() {
 
+    if (sensors.isEmpty) println("Cannot poll. No sensors have been added")
+
     for (sensor <- sensors) {
       if (sensor.isTriggered) {
         System.out.println("A " + sensor.getSensorType + " sensor was triggered at " + sensor.getLocation)

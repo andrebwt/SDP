@@ -14,6 +14,8 @@ object App {
     testSensors += new FireSensor()
     testSensors += new SmokeSensor()
 
+
+
     //val controlUnit: ControlUnit = new ControlUnit
     val controlUnit: ControlUnit = new ControlUnit(testSensors)
 
@@ -24,7 +26,7 @@ object App {
       input = scanner.nextLine
       if (input == POLL) {
         controlUnit.pollSensors()
-      }
+      } else println("No Sensors have been added")
     }
   }
 }
