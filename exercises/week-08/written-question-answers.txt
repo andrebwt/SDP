@@ -11,3 +11,7 @@ This pattern can be used when multiple approaches can be used to reach given res
 
 3.
 The Abstract Factory Pattern creates families of related / dependent objects without specifying their concrete classes.
+
+5.
+If different implementations of an objects construction are kept within the object, the object can suffer from
+object bloat and less modularity. This is more of a problem when the object is complex.
