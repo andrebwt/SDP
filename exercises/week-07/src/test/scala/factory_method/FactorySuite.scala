@@ -7,7 +7,6 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class FactorySuite extends FunSuite {
 
-
   val testProduct = ConcreteCreator.build("xbox")
   val testAlternative = ConcreteCreator.build("playstation")
 
