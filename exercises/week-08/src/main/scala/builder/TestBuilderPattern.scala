@@ -8,10 +8,10 @@ object TestBuilderPattern {
     director.build
     println(carBuilder.getCar)
 
-    //carBuilder = SportsCarBuilder
-    //director = CarDirector(carBuilder)
+    carBuilder = SportsCarBuilder
+    director = CarDirector(carBuilder)
 
-    //director.build
-    //println(carBuilder.getCar)
+    director.build
+    println(carBuilder.getCar)
   }
 }
