@@ -4,10 +4,10 @@ case class NYCFactory() extends AbstractParserFactory {
 
   override def getParserInstance(parserType: String): XMLParser = parserType.toUpperCase match {
 
-    case "NYCORDER" => LondonOrderXMLParser()
-    case "NYCRESPONSE" => LondonResponseXMLParser()
-    case "NYCFEEDBACK" => LondonFeedbackXMLParser()
-    case "NYCERROR" => LondonErrorXMLParser()
+    case "NYCORDER" => NYCOrderXMLParser()
+    case "NYCRESPONSE" => NYCResponseXMLParser()
+    case "NYCFEEDBACK" => NYCFeedbackXMLParser()
+    case "NYCERROR" => NYCErrorXMLParser()
 
 
   }
