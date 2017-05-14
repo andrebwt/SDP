@@ -1,4 +1,4 @@
-1 
+1.
 (a)
 
 The Strategy Pattern is a behavioural pattern that delays algorithm selection until runtime.
@@ -7,3 +7,7 @@ It does this by encapsulating the algorithms and making them interchangeable.
 (b)
 
 This pattern can be used when multiple approaches can be used to reach given result.
+
+
+3.
+The Abstract Factory Pattern creates families of related / dependent objects without specifying their concrete classes.
