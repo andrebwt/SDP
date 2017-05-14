@@ -4,6 +4,7 @@ case class HtmlParentElement(s: String) extends HtmlTag(s) {
 
   var startTag: String = new String()
   var endTag: String = new String()
+  var body: String = new String()
 
   override def setStartTag(tag: String): Unit = {
     startTag = tag
