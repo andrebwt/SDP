@@ -15,3 +15,13 @@ The Abstract Factory Pattern creates families of related / dependent objects wit
 5.
 If different implementations of an objects construction are kept within the object, the object can suffer from
 object bloat and less modularity. This is more of a problem when the object is complex.
+
+7.
+(a)
+The Facade Pattern wraps a complicated subsystem with a simpler interface.
+
+(b)
+The Facade pattern is useful when you have a complex system that may require frequent modification.
+
+9.
+The Bridge Pattern should be used when you want to decouple an abstraction from its implementation.

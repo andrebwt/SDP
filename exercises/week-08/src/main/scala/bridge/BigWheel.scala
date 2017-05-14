@@ -1,11 +1,16 @@
 package bridge
 
-// TODO
-
 case class BigWheel(product: Product, s: String) extends Car(product, s) {
-  override def assemble: Unit = ???
 
-  override def produceProduct: Unit = ???
+  val pName = product.productName
 
-  override def printDetails: Unit = ???
+  override def assemble: Unit = println(s"Assembling $pName for $s")
+
+  override def produceProduct: Unit = {
+
+    product.produce
+    println(s"Modifying product $pName according to $s")
+  }
+
+  override def printDetails: Unit = println(s"Car: $s, Product: $pName")
 }
