@@ -1,3 +1,5 @@
+Answers
+
 1.
 (a) The Strategy Pattern is a behavioural pattern that delays algorithm selection until runtime.
 It does this by encapsulating the algorithms and making them interchangeable.
