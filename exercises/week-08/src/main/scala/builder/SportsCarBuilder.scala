@@ -1,7 +1,5 @@
 package builder
 
-// TODO
-
 object SportsCarBuilder extends CarBuilder {
 
   val sports = Car("Sports")
